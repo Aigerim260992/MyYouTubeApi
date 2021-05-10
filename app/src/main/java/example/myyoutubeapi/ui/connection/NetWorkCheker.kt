@@ -1,4 +1,4 @@
-package example.myyoutubeapi
+package example.myyoutubeapi.ui.connection
 
 import android.content.Context
 import android.content.Context.CONNECTIVITY_SERVICE

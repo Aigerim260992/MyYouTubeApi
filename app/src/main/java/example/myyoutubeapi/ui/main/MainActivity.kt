@@ -1,6 +1,6 @@
 @file:Suppress("DEPRECATION")
 
-package example.myyoutubeapi.ui
+package example.myyoutubeapi.ui.main
 
 import android.content.Context
 import android.content.Intent
@@ -11,14 +11,15 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myyoutubeapi.R
-import example.myyoutubeapi.FirstActivity
-import example.myyoutubeapi.NetworkCheker
+import example.myyoutubeapi.ui.connection.FirstActivity
+import example.myyoutubeapi.ui.connection.NetworkCheker
+import example.myyoutubeapi.ui.playlistdetails.PlaylistDetailsActivity
+import example.myyoutubeapi.core.network.result.Status
 import example.myyoutubeapi.extentions.showToast
-import example.myyoutubeapi.model.PlayList
 import kotlinx.android.synthetic.main.activity_main.*
-import retrofit2.Response
 
-class MainActivity : AppCompatActivity(), MainAdapter.ItemOnClick {
+class MainActivity : AppCompatActivity(),
+    MainAdapter.ItemOnClick {
     private lateinit var recyclerView: RecyclerView
     private lateinit var mainAdapter: MainAdapter
     private var mainViewModel: MainViewModel? = null
@@ -46,12 +47,22 @@ class MainActivity : AppCompatActivity(), MainAdapter.ItemOnClick {
 
     private fun initLiveData() {
         mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-        mainViewModel!!.fetchPlayList().observe(this, Observer {
-            if (it != null) {
+     mainViewModel!!.fetchPlayList().observe(this, Observer {
+           when(it.status){
+               Status.SUCCESS -> {
                 recyclerView = rv_main
-                mainAdapter = MainAdapter(it.body()!!, this)
+                mainAdapter = MainAdapter(it.data!!, this)
                 recyclerView.adapter = mainAdapter
-            }
+                   //invisible progress bar
+               }
+               Status.ERROR -> {
+                   showToast(this, "error")
+               }
+               Status.LOADING -> {
+                   //progress bar add (visible)
+
+               }
+           }
         })
     }
 
@@ -64,6 +75,9 @@ class MainActivity : AppCompatActivity(), MainAdapter.ItemOnClick {
 
     override fun onClick(id: String) {
         showToast(this, id)
+        var intent = Intent(this, PlaylistDetailsActivity::class.java)
+        intent.putExtra("keyId", id)
+        startActivity(intent)
     }
 
 }

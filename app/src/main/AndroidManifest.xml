@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.myyoutubeapi" >
+    package="com.example.myyoutubeapi">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -12,11 +12,14 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MyYouTubeApi" >
-        <activity android:name="example.myyoutubeapi.PlayListDetailsActivity" >
-        </activity>
-        <activity android:name="example.myyoutubeapi.FirstActivity" />
-        <activity android:name="example.myyoutubeapi.ui.MainActivity" >
+        android:theme="@style/Theme.MyYouTubeApi">
+        <activity android:name="example.myyoutubeapi.ui.playvideo.PlayActivity"></activity>
+        <activity android:name="example.myyoutubeapi.core.ui.BaseActivity" />
+        <activity android:name="example.myyoutubeapi.core.ui.BaseViewModel" />
+        <activity android:name="example.myyoutubeapi.ui.playlistdetails.PlaylistDetailsActivity" />
+        <activity android:name="example.myyoutubeapi.PlayListDetailsActivity" />
+        <activity android:name="example.myyoutubeapi.ui.connection.FirstActivity" />
+        <activity android:name="example.myyoutubeapi.ui.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

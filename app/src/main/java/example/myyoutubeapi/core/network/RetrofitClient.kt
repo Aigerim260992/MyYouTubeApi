@@ -1,5 +1,6 @@
-package example.myyoutubeapi.network
+package example.myyoutubeapi.core.network
 
+import com.example.myyoutubeapi.BuildConfig
 import example.myyoutubeapi.constants.Constants
 import example.myyoutubeapi.remote.YouTubeApi
 import okhttp3.OkHttpClient
@@ -18,7 +19,7 @@ class RetrofitClient {
 
             val retrofit = Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl(Constants.BASE_URL)
+                .baseUrl(BuildConfig.BASE_URL)
                 .client(okHttpClient).build()
 
             return retrofit.create(YouTubeApi::class.java)

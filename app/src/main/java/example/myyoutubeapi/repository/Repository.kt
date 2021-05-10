@@ -2,20 +2,25 @@ package example.myyoutubeapi.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
-import example.myyoutubeapi.constants.Constants
 import example.myyoutubeapi.model.PlayList
-import example.myyoutubeapi.network.RetrofitClient
-import example.myyoutubeapi.remote.YouTubeApi
+import example.myyoutubeapi.core.network.result.Resource
+import exaple.myyoutubeapi.remote.RemoteDataSource
 import kotlinx.coroutines.Dispatchers
-import retrofit2.Response
 
-class Repository {
+class Repository( private val dataSource: RemoteDataSource) {
 
-    private var youTubeApi: YouTubeApi = RetrofitClient.create()
 
-    fun fetchYouTubeApiPlayList(): LiveData<Response<PlayList>> = liveData(Dispatchers.IO) {
-        val response =
-            youTubeApi.fetchPlayList(Constants.PART, Constants.CHANNEL_ID, Constants.API_KEY)
+    fun fetchYouTubeApiPlayList(): LiveData<Resource<PlayList>> = liveData(Dispatchers.IO) {
+        emit(Resource.loading(null))
+        val response = dataSource.fetchPlaylist()
         emit(response)
     }
+
+    fun fetchYouTubeApiPlayListDetails(playListId: String): LiveData<Resource<PlayList>> = liveData(Dispatchers.IO) {
+        emit(Resource.loading(null))
+        val response = dataSource.fetchPlaylistItems(playListId)
+        emit(response)
+    }
+
+
 }

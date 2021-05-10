@@ -1,4 +1,4 @@
-package example.myyoutubeapi
+package example.myyoutubeapi.ui.connection
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

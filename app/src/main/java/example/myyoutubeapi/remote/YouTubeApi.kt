@@ -13,6 +13,15 @@ interface YouTubeApi {
     suspend fun fetchPlayList(
         @Query("part") part: String,
         @Query("channelId") channelId: String,
-        @Query("key") key: String
+        @Query("key") key: String,
+        @Query("maxResults") maxResults: Int
+    ): Response<PlayList>
+
+    @GET("playlistItems")
+    suspend fun fetchPlayListItems(
+        @Query("part") part: String,
+        @Query("playlistId") playlistId: String,
+        @Query("key") key: String,
+        @Query("maxResults") maxResults: Int
     ): Response<PlayList>
 }

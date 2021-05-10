@@ -16,10 +16,13 @@
             android:id="@+id/imageView"
             style="@style/image_view_style" />
 
-        <View style="@style/view_container_style" />
+        <View style="@style/view_container_style"
+            android:id="@+id/container_view"
+            />
 
         <TextView style="@style/playlist_text_style"
             android:text="Playlist"
+            android:id="@+id/container_tv"
             />
 
     </com.google.android.material.card.MaterialCardView>
